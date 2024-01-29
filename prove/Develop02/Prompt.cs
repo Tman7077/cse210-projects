@@ -6,7 +6,9 @@ public class Prompt {
         "What was the best part of your day?",
         "How did you see the hand of the Lord in your life today?",
         "What was the strongest emotion you felt today?",
-        "If you had one thing you could do over today, what would it be?"
+        "If you had one thing you could do over today, what would it be?",
+        "What can you do to better include God in your life tomorrow?",
+        "How did your actions today prepare you for a better future?"
     };
 
     // pick and return a prompt from the currently available prompts

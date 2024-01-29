@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using System.IO;
 public class Journal {
     // current date in readable format, filename based on date, and a list of entries
@@ -11,12 +12,49 @@ public class Journal {
         _entries.Add(entry);
     }
 
-    // display the date (readable) followed by each currently loaded prompt and entry
-    public void Display() {
-        Console.WriteLine($"\n{_date}\n");
-        foreach (Entry entry in _entries) {
-            Console.WriteLine($"{entry._prompt}\n{entry._userEntry}\n");
+    // display the date (readable) followed by each currently loaded prompt and entry.
+    // displayNumbers, false by default, will number the entries, used in the case that they would like to edit an entry
+    public void Display(Journal journal, bool displayNumbers = false) {
+        // if there is at least one entry in the current journal
+        if (journal._entries is not []) {
+            Console.WriteLine($"\n{_date}\n");
+            int i = 1; // to number the entries if numbering is displayed
+            if (displayNumbers) {
+                // display numbers in front of entries (for editing purposes)
+                foreach (Entry entry in _entries) {
+                    Console.WriteLine($"{i}. {entry._prompt}\n{entry._userEntry}\n");
+                    i++;
+                }
+            } else {
+                // display entries normally
+                foreach (Entry entry in _entries) {
+                    Console.WriteLine($"{entry._prompt}\n{entry._userEntry}\n");
+                }
+            }
+        } else {
+            Console.WriteLine("\nThere is nothing in the currently loaded journal.\n");
         }
+    }
+
+    // edit an entry in the given journal
+    public void Edit(Journal journal) {
+        int length = journal._entries.Count(); // number of entries in journal
+        int index = 0; // index at which the user wwould like to edit the entry, zero unless edited
+        // if journal is empty, call the above and tell the user such, then don't continue this function.
+        if (length == 0) {
+            Display(journal);
+            return;
+        // if there is more than one entry, ask the user which entry they would like to edit; if not, edit the only one there
+        } else if (length > 1) {
+            Display(journal, true);
+            Console.Write($"Which entry would you like to edit? Enter 1-{length}.\n> ");
+            index = int.Parse(Console.ReadLine()) - 1;
+        }
+        Entry entry = journal._entries[index];
+        Console.WriteLine($"You are now editing journal entry {index+1}.");
+        Console.Write($"{entry._prompt}\nYour original response (you may copy or rewrite):\n> {entry._userEntry}\nYour edit: ");
+        entry._userEntry = Console.ReadLine();
+        Console.WriteLine("Edit accepted.\n");
     }
 
     // save currently loaded entries to a file
