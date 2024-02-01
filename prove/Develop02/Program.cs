@@ -12,11 +12,15 @@ class Program
         Prompt prompt = new Prompt();
 
         // function to repeat, allows the user to pick what they would like to do (write, load, save, etc.)
-        void ChooseAction() {
+        void ChooseAction()
+        {
             // if this is the user's first interaction, treat it as such; if not, ask "what else" they would like to do
-            if (choices == 0) {
+            if (choices == 0)
+            {
                 Console.WriteLine("What would you like to do with your journal? Enter 1-6.");
-            } else {
+            }
+            else
+            {
                 Console.WriteLine("What else would you like to do? Enter 1-6.");
             }
             // display 5 options to the user, ask for input
@@ -30,16 +34,20 @@ class Program
             choice = int.Parse(Console.ReadLine());
 
             // choose from 5 options based on user input
-            switch (choice) {
+            switch (choice)
+            {
                 case 1: // write in journal
                     // if there is at least one prompt that has not already been answered
-                    if (prompt._prompts.Count() > 0) {
+                    if (prompt._prompts.Count() > 0)
+                    {
                         // create a new entry object, prompt the user, and add it to the current journal.
                         Entry entry = new Entry();
                         entry.PromptUser(prompt);
                         journal.AddEntry(entry);
                         Console.WriteLine("Entry recorded.\n");
-                    } else {
+                    }
+                    else
+                    {
                         Console.WriteLine("\nYou've answered all of today's prompts!\n");
                     }
                     break;
@@ -48,24 +56,33 @@ class Program
                     break;
                 case 3: // load a journal from a file
                     // if the currently loaded journal has no entries
-                    if (journal._entries is []) {
+                    if (journal._entries is [])
+                    {
                         PromptLoadJournal();
-                    } else {
+                    }
+                    else
+                    {
                         string entryEntries; // either "entry" or "entries" depending on number of loaded entries
                         string itThem; // either "it" or "them" depending on the number of loaded entries
-                        if (journal._entries.Count() > 1) {
+                        if (journal._entries.Count() > 1)
+                        {
                             entryEntries = "entries";
                             itThem = "them";
-                        } else {
+                        }
+                        else
+                        {
                             entryEntries = "entry";
                             itThem = "it";
                         }
                         // confirm with the user if they want to overwrite currently loaded entries with entries from a file
                         Console.Write($"You have {journal._entries.Count()} {entryEntries} loaded already. Would you like to overwrite {itThem}? Enter y/n.\n> ");
                         string shouldLoad = Console.ReadLine();
-                        if (shouldLoad == "y") {
+                        if (shouldLoad == "y")
+                        {
                             PromptLoadJournal();
-                        } else {
+                        }
+                        else
+                        {
                             break;
                         }
                     }
@@ -88,19 +105,22 @@ class Program
             }
         }
 
-        void PromptLoadJournal() {
+        void PromptLoadJournal()
+        {
             // prompt the user for the name of the file they would like to load
             Console.Write("\nEnter the name of the file you would like to load.\n> ");
             string filename = Console.ReadLine();
             journal = journal.Load(filename);
             // remove the prompts that have been answered in the loaded journal from the remaining possibilities
-            foreach (Entry entry in journal._entries) {
+            foreach (Entry entry in journal._entries)
+            {
                 prompt._prompts.Remove(entry._prompt);
             }
             Console.WriteLine("File loaded.");
         }
         
-        do {
+        do
+        {
             ChooseAction();
             choices++;
         } while (choice != 0);
