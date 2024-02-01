@@ -13,14 +13,14 @@ public class Journal {
     }
 
     // display the date (readable) followed by each currently loaded prompt and entry.
-    // displayNumbers, false by default, will number the entries, used in the case that they would like to edit an entry
+    // displayNumbers, false by default, will number the entries, used in the case that the user would like to edit an entry
     public void Display(Journal journal, bool displayNumbers = false) {
         // if there is at least one entry in the current journal
         if (journal._entries is not []) {
-            Console.WriteLine($"\n{_date}\n");
+            Console.WriteLine($"\n{_date}");
             int i = 1; // to number the entries if numbering is displayed
             if (displayNumbers) {
-                // display numbers in front of entries (for editing purposes)
+                // display numbers in front of entries (for entry editing purposes)
                 foreach (Entry entry in _entries) {
                     Console.WriteLine($"{i}. {entry._prompt}\n{entry._userEntry}\n");
                     i++;
