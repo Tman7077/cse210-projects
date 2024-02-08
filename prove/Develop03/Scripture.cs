@@ -250,27 +250,27 @@ public class Scripture
     {
         string[] words = _text.Split(' ', StringSplitOptions.RemoveEmptyEntries); // string array where one entry is one word (or verse number), including punctuation
         Random randomIndex = new Random();
-        int totalWords = words.Count(); // number of words
-        int lastFew = totalWords % 5;   // number of words that will be left after each full set of 5 is hidden
+        int totalWords = words.Count();             // number of words
+        int[] verses = _reference.GetVerses();      // integer array containing start and end verses
+        int numVerses = verses[1] - verses[0] + 1;  // number of verses to obscure
+        int lastFew = (totalWords - numVerses) % 5; // number of words that will be left after each full set of 5 is hidden, ignoring verses
 
         // if totalWords is divisible by 5 (if there are some multiple of 5 words to be hidden),
-        // set lastFew to 5, because there will be 5 words to remove on the last round
+        // set lastFew to 5, because there will be 5 words to remove on the last round, not 0.
         if (lastFew == 0)
         {
             lastFew = 5;
         }
-        int numToObscure = 5;                      // number of words to hide
-        int[] verses = _reference.GetVerses();     // integer array containing start and end verses
-        int numVerses = verses[1] - verses[0] + 1; // number of verses to obscure
+        int numToObscure = 5; // number of words to hide
 
-        // if the number of remaining words is less than or equal to 5
-        if (totalWords - 5 * times == lastFew)
+        // if the number of remaining words (ignoring the entries that are verse numbers) is less than or equal to 5
+        if (totalWords - numVerses - 5 * times == lastFew)
         {
             // set the number of words to hide to the number of remaining words
-            // (ignoring the entries that are verse numbers)
-            numToObscure = lastFew - numVerses;
+            numToObscure = lastFew;
         }
-        else if (totalWords - 5 * (times + 1) < 0) // if all of the words have been hidden
+        // if all of the words have been hidden
+        else if (totalWords - 5 * (times + 1) < 0) 
         {
             // this stops this function from being called again in Program.cs
             return false;
@@ -280,19 +280,19 @@ public class Scripture
         for (int i = 0; i < numToObscure; i++)
         {
             int index;
-            string hiddenWord;
+            string word;
             
             // select a random word and hide it─
             // if the word is either the verse number or already hidden,
-            // this will try again until it hides out a new word successfully
+            // this will try again until it hides a new word successfully
             do
             {
                 index = randomIndex.Next(0,words.Count());
-                hiddenWord = new Word(words[index]).Hide();
-            } while (words[index] == hiddenWord);
+                word = words[index];
+            } while (new Word(word).IsHidden());
             
             // replace the original word with the hidden one
-            words[index] = hiddenWord;
+            words[index] = new Word(word).Hide();
         }
 
         string newText = "";
