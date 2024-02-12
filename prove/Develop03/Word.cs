@@ -3,11 +3,13 @@ using System.Text.RegularExpressions;
 public class Word
 {
     private string _word;
+    private bool _isHidden;
 
     // instantiates a Word given a word as a string
     public Word(string word)
     {
         _word = word;
+        _isHidden = SetHiddenState();
     }
 
     // replace a given word with underscores
@@ -20,7 +22,7 @@ public class Word
         return letters.Replace(_word,"_");
     }
 
-    public bool IsHidden()
+    private bool SetHiddenState()
     {
         Regex numbersOrUnderscores = new Regex("[0-9+|_+]"); // regular expression to match any set of numbers or underscores ("1", "12", "_", and "__" would each match once)
 
@@ -34,5 +36,10 @@ public class Word
         {
             return false;
         }
+    }
+
+    public bool GetHiddenState()
+    {
+        return _isHidden;
     }
 }

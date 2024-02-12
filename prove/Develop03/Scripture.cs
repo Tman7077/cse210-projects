@@ -289,7 +289,7 @@ public class Scripture
             {
                 index = randomIndex.Next(0,words.Count());
                 word = words[index];
-            } while (new Word(word).IsHidden());
+            } while (new Word(word).GetHiddenState());
             
             // replace the original word with the hidden one
             words[index] = new Word(word).Hide();
