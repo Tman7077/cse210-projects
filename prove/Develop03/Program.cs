@@ -12,8 +12,7 @@ class Program
         // Select() could also take an input of a scripture reference to select that scripture specifically
         Scripture scripture = new Scripture().Select();
 
-        string userInput; // nothing if the user wants to continue, something (quit, usually), if they want to exit
-        int times = 0;    // number of times the user has continued
+        string userInput; // nothing if the user wants to continue, something ("quit", usually), if they want to exit
         do
         {
             // clear the console, display the current state of the scripture (including blank lines if applicable), and prompt the user
@@ -22,8 +21,7 @@ class Program
             Console.WriteLine("\nHit enter to continue, or type quit to quit.");
 
             // scripture.Obscure obscures some of the words of the scripture and returns true if there is more left to obscure, otherwise it returns false
-            bool shouldContinue = scripture.Obscure(times);
-            times++;
+            bool shouldContinue = scripture.Obscure();
 
             // if there is more scripture left to obscure, prompt the user if they want to continue, otherwise auto-quit
             if (shouldContinue)
