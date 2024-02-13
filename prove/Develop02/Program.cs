@@ -3,6 +3,8 @@ using System.Security.Cryptography;
 
 class Program
 {
+    /* extra points: I added an edit function, in Journal.cs line 49,
+    which allows the user to edit an entry of their choosing from the currently loaded entries */
     static void Main(string[] args)
     {
         int choice = 0; // user's entry, should be 1-6
