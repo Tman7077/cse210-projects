@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 public class Scripture
@@ -165,13 +166,16 @@ public class Scripture
         }
     };
     private Reference _reference;
-    private string _text;
+    private string _text;   // the content of the scripture
+    private int _times = 0; // number of times the user has obscured words
     
-    // instantiates a Scripture with an undefined Reference and blank sample text─ never used without later redefining it otherwise
+    // instantiates a Scripture with a default Reference (1 Nephi 3:7) and its text─ never used without later redefining it otherwise
     public Scripture()
     {
         _reference = new Reference();
-        _text = "";
+        _text = "7 And it came to pass that I, Nephi, said unto my father: I will go and do the things which the Lord hath commanded, "
+            + "for I know that the Lord giveth no commandments unto the children of men, "
+            + "save he shall prepare a way for them that they may accomplish the thing which he commandeth them.";
     }
 
     // instantiates a Scripture based on a given scripture reference
@@ -246,7 +250,7 @@ public class Scripture
     }
 
     // replace up to 5 words (if available) with underscores
-    public bool Obscure(int times)
+    public bool Obscure()
     {
         string[] words = _text.Split(' ', StringSplitOptions.RemoveEmptyEntries); // string array where one entry is one word (or verse number), including punctuation
         Random randomIndex = new Random();
@@ -264,13 +268,13 @@ public class Scripture
         int numToObscure = 5; // number of words to hide
 
         // if the number of remaining words (ignoring the entries that are verse numbers) is less than or equal to 5
-        if (totalWords - numVerses - 5 * times == lastFew)
+        if (totalWords - numVerses - 5 * _times == lastFew)
         {
             // set the number of words to hide to the number of remaining words
             numToObscure = lastFew;
         }
         // if all of the words have been hidden
-        else if (totalWords - 5 * (times + 1) < 0) 
+        else if (totalWords - 5 * (_times + 1) < 0) 
         {
             // this stops this function from being called again in Program.cs
             return false;
@@ -289,7 +293,7 @@ public class Scripture
             {
                 index = randomIndex.Next(0,words.Count());
                 word = words[index];
-            } while (new Word(word).GetHiddenState());
+            } while (new Word(word).GetHiddenState() == true);
             
             // replace the original word with the hidden one
             words[index] = new Word(word).Hide();
@@ -305,6 +309,9 @@ public class Scripture
 
         // set original text to new (partially hidden) text
         _text = newText;
+
+        // increment the number of times the uder has obscured words
+        _times++;
 
         // tell Program.cs to continue hiding words
         return true;
