@@ -9,10 +9,10 @@ public class Reference
     // instantiates a Reference with sample content─ never used without later redefining it otherwise
     public Reference()
     {
-        _book = "Title Page";
-        _chapter = 1;
-        _verses[0] = 1;
-        _verses[1] = 1;
+        _book = "1 Nephi";
+        _chapter = 3;
+        _verses[0] = 7;
+        _verses[1] = 7;
     }
 
     // instantiates a Reference given a book, chapter, start verse, and end verse (the latter two of which may be the same)
