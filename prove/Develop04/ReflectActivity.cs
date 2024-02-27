@@ -20,41 +20,65 @@ public class ReflectActivity: Activity
         "How can you keep this experience in mind in the future?"
     };
 
+    // instantiate an Activity with reflection info
     public ReflectActivity(): base("reflection",
     "reflect on times in your life when you have shown strength and resilience.|" +
     "recognize the power you have and how you can use it in other aspects of your life.") {}
 
+    // run the Reflect activity
     public void Run()
     {
-        DisplayStartMessage();
+        string prompt = Select(_promptList); // select a prompt from the list to display to the user
 
-        Console.WriteLine("\nConsider the following prompt:");
-        string prompt = Select(_promptList);
-        Console.WriteLine($"\n> {prompt}\n");
-        Console.WriteLine("When you have something in mind, press enter to continue.");
-        Console.ReadLine();
-        Console.WriteLine("Now ponder on the following questions as they relate to this experience.");
-        ReadyGo(3);
-
-        int duration = GetRealDuration(7);
-        int secondsPerQuestion = 7;
-        if (duration > 7 * _questionList.Count())
+        // if Select() does not return a usable prompt
+        if (prompt == "empty")
         {
-            duration = GetRealDuration(_questionList.Count());
-            secondsPerQuestion = duration / _questionList.Count();
+            Console.WriteLine("You have answered all of today's reflection prompts already.");
+            Wait(3);
         }
-        DateTime later = DateTime.Now.AddSeconds(duration);
-        
-        string question;
-
-        while (DateTime.Now < later)
+        // if Select() returns a usable prompt
+        else
         {
-            question = Select(_questionList);
-            Console.Write($"\n\n{question} ");
-            Wait(secondsPerQuestion);
-            _questionList.Remove(question);
-        }
+            // prompt the user for the duration of the activity and display the start message
+            PromptDuration("reflection");
+            DisplayStartMessage();
 
-        DisplayEndMessage();
+            // Prompt the user, allow them time to think (and hit enter), then tell them to start pondering
+            Console.WriteLine("\nConsider the following prompt:");
+            Console.WriteLine($"\n> {prompt}\n");
+            _promptList.Remove(prompt);
+            Console.WriteLine("When you have something in mind, press enter to continue.");
+            Console.ReadLine();
+            Console.WriteLine("Now ponder on the following questions as they relate to this experience.");
+            ReadyGo(3);
+
+            int duration = GetRealDuration(7); // duration as a multiple of 7 seconds
+            int secondsPerQuestion = 7;        // seconds for which to display each question
+
+            // if the duration is greater than 7 seconds per question in _questionList
+            if (duration > 7 * _questionList.Count())
+            {
+                // set duration equal to a multiple of the length of _questionList
+                duration = GetRealDuration(_questionList.Count());
+                // set the seconds per question to evenly spread out each question
+                secondsPerQuestion = duration / _questionList.Count();
+            }
+            DateTime later = DateTime.Now.AddSeconds(duration); // the time until when the activity should run
+            // (this will be an even multiple of either 7 seconds or the length of _questionList
+            // to account for input times greater than 7 * _questionList.Count())
+
+            while (DateTime.Now < later)
+            {
+                string question = Select(_questionList); // question from _questionList
+
+                // write the question, wait for (secondsPerQuestion) seconds, and remove that question from the list
+                Console.Write($"\n\n{question} ");
+                Wait(secondsPerQuestion);
+                _questionList.Remove(question);
+            }
+
+            // thank the user for participating
+            DisplayEndMessage();
+        }
     }
 }
