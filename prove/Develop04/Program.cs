@@ -3,6 +3,7 @@ using System;
 class Program
 {
     //www.plantuml.com/plantuml/png/VL6zJiCm4Dxz59Qwk0fvWQX21GcnG0SwC28J7yLIuWJVkH82tXsR1BYuLjVl_-mjalOK-awqdKQKLotPewLtyI5g-VH3tWEYFa0ZaRnrXuI3CmLKpzwTxXUu0Moz7SaERW47hoVCEX9YzTUjIa4NaiKma8UiHSoz1TgpsMhDEYDtuymfivAFsf92Q0TdSCfgv76m9b9xwA0bTMUHDfF-yj_v9SJySW_madHno_8DHp_q8oLt8tb6uju2O78KM54L4bL-RXG5Lz3DwoNRT-r1qslCPlEgKxHSmMJB1bQGvlFuyzUBAZUeub_kGlyCFad1nD94JPEOEn_qYydDPrqNdZ4JyEDAV7xO5fm9VVSD
+    // exceding core requirements: I added a SenseActivity activity, and made sure the prompts in ListActivity and ReflectActivity didn't repeat
     static void Main(string[] args)
     {
         int choice = 0; // the user's choice, from 1-5
