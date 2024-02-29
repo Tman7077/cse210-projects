@@ -18,7 +18,7 @@ public class SenseActivity: Activity
     public void Run()
     {
         // prompt the user for the duration of the activity, display the start message, and ready them
-        PromptDuration("senses");
+        PromptDuration();
         DisplayStartMessage();
         ReadyGo(3);
 

@@ -9,7 +9,7 @@ public class BreatheActivity: Activity
     public void Run()
     {
         // prompt the user for the duration of the activity, display the start message, ready them, and wait
-        PromptDuration("breathing");
+        PromptDuration();
         DisplayStartMessage();
         ReadyGo(3);
         Thread.Sleep(1000);

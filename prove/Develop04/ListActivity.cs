@@ -29,7 +29,7 @@ public class ListActivity: Activity
         else
         {
             // prompt the user for the duration of the activity and display the start message
-            PromptDuration("listing");
+            PromptDuration();
             DisplayStartMessage();
 
             // display a prompt to the user, remove it from _promptList, and wait for 5 seconds to let them think

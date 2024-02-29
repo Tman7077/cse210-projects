@@ -40,7 +40,7 @@ public class ReflectActivity: Activity
         else
         {
             // prompt the user for the duration of the activity and display the start message
-            PromptDuration("reflection");
+            PromptDuration();
             DisplayStartMessage();
 
             // Prompt the user, allow them time to think (and hit enter), then tell them to start pondering

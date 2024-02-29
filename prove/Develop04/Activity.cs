@@ -1,6 +1,7 @@
 public class Activity
 {
     private int _duration;        // the minimum number of seconds for which the program will run
+    private string _activityName;
     private string _startMessage; // the message to display at the start of a new activity
     private string _endMessage;   // the message to display at the end of an activity
 
@@ -15,6 +16,7 @@ public class Activity
     // set the start message, given the activity name and description
     private void SetStartMessage(string name, string description)
     {
+        _activityName = name;
         string[] splitDescription = description.Split("|"); // string array that holds the meat of the first and second sentences
         _startMessage =
         "Welcome to the " + name + " activity. " +
@@ -22,19 +24,19 @@ public class Activity
         " This will help you " + splitDescription[1]; // start message string
     }
     // set the end message, given the activity name
-    private void SetEndMessage(string name)
+    private void SetEndMessage()
     {
-        _endMessage =  $"You have completed {_duration} seconds of the {name} activity.";
+        _endMessage =  $"You have completed {_duration} seconds of the {_activityName} activity.";
     }
 
     // prompt the user for the duration of the activity, given the name of the activity
-    protected void PromptDuration(string name)
+    protected void PromptDuration()
         {
-            Console.WriteLine($"For how many seconds would you like to do the {name} activity?");
+            Console.WriteLine($"For how many seconds would you like to do the {_activityName} activity?");
             _duration = int.Parse(Console.ReadLine());
             
             // because the end message includes the duration, set it now
-            SetEndMessage(name);
+            SetEndMessage();
         }
     // clear the console, display the start message and wait two seconds
     protected void DisplayStartMessage()
