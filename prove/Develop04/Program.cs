@@ -16,12 +16,6 @@ class Program
         void Menu() {
             Console.Clear();
 
-            // if the user input a number that is not a valid choice
-            if (choice == -1)
-            {
-                Console.WriteLine("Please enter 1-5.\n");
-            }
-
             // display the menu choices
             Console.WriteLine("Enter a number corresponding to an option below:");
             Console.WriteLine("  1. Start breathing activity");
@@ -52,8 +46,9 @@ class Program
                     choice = 0;
                     Console.Clear();
                     break;
-                default: // if choice variable is not a number from 1-5.
-                    choice = -1;
+                default: // if the user input a number that is not a valid choice
+                    Console.WriteLine("Please enter 1-5.");
+                    Thread.Sleep(2000);
                     break;
             }
         }

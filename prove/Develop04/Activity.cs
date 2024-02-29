@@ -19,7 +19,7 @@ public class Activity
         _startMessage =
         "Welcome to the " + name + " activity. " +
         "This activity will help you " + splitDescription[0] +
-        " This will help you " + splitDescription[1];       // start message string
+        " This will help you " + splitDescription[1]; // start message string
     }
     // set the end message, given the activity name
     private void SetEndMessage(string name)
