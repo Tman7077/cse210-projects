@@ -4,7 +4,7 @@ class EternalGoal: Goal
 
     public override string GetSaveFormat()
     {
-        return "";
+        return string.Join("|",("EternalGoal",GetBaseSaveFormat()));
     }
     public override bool IsCompleted()
     {
