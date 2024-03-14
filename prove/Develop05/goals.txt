@@ -1,0 +1,4 @@
+0
+SimpleGoal|Simple goal|Simple description|30|False
+EternalGoal|Eternal goal|Eternal description|10
+ChecklistGoal|Checklist goal|Checklist description|20|3|50|0
