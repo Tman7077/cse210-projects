@@ -4,6 +4,16 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Foundation4 World!");
+        List<Activity> activities = new List<Activity>
+        {
+            new Running("April 1st", 20, 2),
+            new Biking("April 2nd", 30, 20),
+            new Swimming("April 3rd", 40, 80)
+        };
+
+        foreach (Activity a in activities)
+        {
+            a.GetSummary();
+        }
     }
 }
