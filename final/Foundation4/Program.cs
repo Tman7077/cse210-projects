@@ -4,13 +4,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<Activity> activities = new List<Activity>
+        List<Activity> activities = new List<Activity> // list of example activities
         {
             new Running("April 1st", 20, 2),
             new Biking("April 2nd", 30, 20),
             new Swimming("April 3rd", 40, 80)
         };
 
+        // display the summary for each activity
         foreach (Activity a in activities)
         {
             a.GetSummary();

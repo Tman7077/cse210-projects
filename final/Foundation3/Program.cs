@@ -4,16 +4,19 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<Event> events = new List<Event>
+        List<Event> events = new List<Event> // list of example events
         {
             new Lecture("Lecture Title", "Lecture Description", "January 1st", "12:00 p.m.", new Address("123 Lecture St.", "Lecture City", "New Lectureshire", "ULA"), "Lecture Speaker", 2),
             new Reception("Reception Title", "Reception Description", "January 2nd", "12:00 p.m.", new Address("456 Reception St.", "Reception City", "New Receptionshire", "URA"), "re@cep.tion"),
             new OutdoorGathering("Outdoor Gathering Title", "Outdoor Gathering Description", "January 3rd", "12:00 p.m.", new Address("789 Outdoor Gathering St.", "Outdoor Gathering City", "New Outdoor Gatheringshire", "UOGA"), "Cloudy with a chance of meatballs")
         };
         
+        // display the short description, standard details, and full details for each event in the list
         foreach (Event e in events)
         {
+            // display which kind of event the succeeding info will be about, accounting for the "an" before, and theh space between, Outdoor Gathering
             Console.WriteLine($"Info about a{(e.GetType().ToString() == "OutdoorGathering" ? "n Outdoor Gathering" : $" {e.GetType()}")}:\n");
+
             Console.WriteLine("Short description:");
             e.DisplayShortDescription();
             Console.WriteLine();
