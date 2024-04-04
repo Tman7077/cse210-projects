@@ -22,6 +22,6 @@ class Product
     // return a string in the format displayed on a packing label
     public string GetPackingInfo()
     {
-    return $"{_name} ({_id}): {_quantity} @ ${_price}/ea";
+    return $"{_name} ({_id:00000000}): {_quantity} @ ${_price:.00}/ea";
     }
 }

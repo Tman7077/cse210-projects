@@ -25,7 +25,7 @@ class Program
         // display the order plus its total and its shipping and packing labels
         foreach (Order o in ol)
         {
-            Console.WriteLine($"Order {i} (total: ${o.CalculateTotal()}):");
+            Console.WriteLine($"Order {i} (total: ${o.CalculateTotal():.00}):");
             Console.WriteLine($"{o.GetPackingLabel()}\n");
             Console.WriteLine($"Shipping Label:\n{o.GetShippingLabel()}\n");
             i++;
